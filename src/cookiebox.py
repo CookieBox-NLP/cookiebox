@@ -1,8 +1,21 @@
 import sys
 sys.path.append("..")
-from lib.parsing import Parsing
+from classes.parsing import Parsing
+from classes.knowledge_graph import KnowledgeGraph
+'''
+THESE IMPORTS ARE TEMPORARY
+'''
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import networkx as nx
+
+'''
+THESE IMPORTS ARE TEMPORARY
+'''
 
 def main():
+
     file_name = str(sys.argv[1])
     opt = sys.argv[2]
     output_name = str(sys.argv[3])
@@ -20,6 +33,20 @@ def main():
         p.perform_replace_substring(r_str, p_str)
 
     print("COMPLETE => Find output in ../data/" + output_name)
+    p.perform_extract_all()
+
+    test = [["Bob", "car"],
+            ["Ricky", "store"],
+            ["Ruj", "petite"],
+            ["Gay people", "Ruj's family"]]
+
+    relations = [["has a"],
+                 ["goes to the"],
+                 ["is very"],
+                 ["is a synonym for"]]
+
+    kg = KnowledgeGraph(test, relations, plt)
+    kg.print_graph()
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:

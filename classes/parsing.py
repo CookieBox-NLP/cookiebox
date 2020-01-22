@@ -1,4 +1,5 @@
 import sys
+
 class Parsing:
     def __init__(self, file_name, output_name):
         self.PATH = "../data/"
@@ -31,7 +32,6 @@ class Parsing:
                 tmp = l[:ind] + l[ind + len(string):]
                 l = tmp
             self.out_file.write(l)
-
     def perform_replace_substring(self, r_string, p_string):
         if r_string != p_string:
             for l in self.lines:
