@@ -39,44 +39,23 @@ def main():
     p.perform_extract_all()
 
     data = pd.DataFrame({'subj': ['Bob', 'Ricky', 'The day', 'Bob', 'Michael',
-                                  'Bob', 'Bob', 'Nibraas', 'Arif', 'Donny', 'Bob'],
+                                  'Bob', 'Bob', 'Nibraas', 'Arif', 'Donny', 'Bob', 'mansions'],
                          'subj_ques': ['Who', 'Who', 'When', 'Who', 'Who', 'Who',
-                                       'Who', 'Who','Who', 'Who','Who'],
+                                       'Who', 'Who','Who', 'Who','Who', 'What'],
                          'relations': ['has a', 'drives to the', 'always', 'usually hits',
                                        'puts up', 'eats', 'writes', 'is obsessed with', 'always',
-                                       'likes to play', 'turned his apartment into a'],
+                                       'likes to play', 'turned his apartment into a', 'are bigger than'],
                          'obj': ['car', 'store', 'cycles', 'targets', 'carts', 'peanut butter',
-                                 'fragments', 'Daniel Caesar', 'smells bad', 'sports', 'mansion'],
+                                 'fragments', 'Daniel Caesar', 'smells bad', 'sports', 'mansions', 'houses'],
                          'obj_ques': ['What', 'Where', 'What', 'What', 'What', 'What',
-                                      'What', 'Who', 'How', 'What', 'What']
+                                      'What', 'Who', 'How', 'What', 'What', 'What']
                          })
 
-    print('DATA =>\n', data)
-
-    # test = [["Bob", "car"],
-    #         ["Ricky", "store"],
-    #         ["Don", "Store"],
-    #         ["The day", "cycles"],
-    #         ["Bob", "targets"],
-    #         ["Michael","carts"],
-    #         ["Bob","Peanut Butter"],
-    #         ["Bob","Fragments"],
-    #         ["Nibraas","Daniel Caesar"],
-    #         ["Arif","smells bad"]]
-    #
-    # relations = [["has a"],
-    #              ["goes to the"],
-    #              ["is very"],
-    #              ["is a synonym for"],
-    #              ["always hits the"],
-    #              ["random edge 1"],
-    #              ["random edge 2"],
-    #              ["random edge 3"],
-    #              ["random edge 4"],
-    #              ["random edge 5"]]
+    print('DATA =>\n\n', data)
 
     kg = KnowledgeGraph(data, plt)
     kg.print_graph()
+
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
