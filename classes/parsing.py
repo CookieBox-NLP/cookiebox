@@ -71,7 +71,6 @@ class Parsing:
         prefix = ""
         modifier = ""
 
-
         for tok in self.spacy(sent):
             if tok.dep_ != "punct":
                 if tok.dep_ == "compound":
@@ -95,6 +94,7 @@ class Parsing:
                     ent2 = modifier + " " + prefix + " " + tok.text
                 prv_tok_dep = tok.dep_
                 prv_tok_text = tok.text
+
         return [[ent1.strip(), ent2.strip()]]
 
     def perform_extract_attributes(self, sent):
