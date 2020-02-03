@@ -16,8 +16,9 @@ class KnowledgeGraph():
                 print("ERR => Please provide non-empty entities and relations")
                 sys.exit(1)
             else:
+                self.master_repository = self.build_master_repository(df)
                 self.plt = plt
-
+                print('AFTER =>', self.master_repository)
                 '''                
                  :Initalizing the source, target, and relation values that will be contained in a dataframe under respective named columns.
                  :NetworkX constructor will take care of our DiGraph.
@@ -38,11 +39,26 @@ class KnowledgeGraph():
             print("ERR => Problem loading entities or relations")
             sys.exit(1)
 
+    @staticmethod
+    def build_master_repository(df):
+        tmp = {}
+        for row in df.itertuples(index=True, name='Pandas'):
+            tmp[getattr(row, 'subj')] = [getattr(row, 'subj_ques'),
+                                         getattr(row, 'obj'),
+                                         getattr(row, 'obj_ques'),
+                                         getattr(row, 'relations')]
+
+            tmp[getattr(row,  'obj')] = [getattr(row, 'obj_ques'),
+                                         getattr(row, 'subj'),
+                                         getattr(row, 'subj_ques'),
+                                         getattr(row, 'relations')]
+        return tmp
+
     def print_graph(self):
 
         '''
          :The repository is an inversion of our Position dictionary. The repository key-value pair is: '(x,y): label'
-         :This is useful for our annotaiton process
+         :This is useful for our annotation process
          :return: void
         '''
 
@@ -70,11 +86,15 @@ class KnowledgeGraph():
             :param coord: Coordinate of the matching
             :return:
             '''
+            label = repository[str(coord)]
+            label_list = self.master_repository[label]
+
             ann.set_text('AUXILIARY NODE INFORMATION' + '\n\n' +
-                         'Node_Nam: ' + repository[str(coord)] + '\n' +
-                         'Node_Id: ' + '3' + '\n' +
-                         'Node_Ques: ' + 'WHO' + '\n' +
-                         'Node_neigh: ' + '4')
+                         'Node_Nam: ' + label + '\n' +
+                         'Subj/Obj: ' + label_list[0] + '\n' +
+                         'Subj/Obj_Ques_1: ' + label_list[1] + '\n' +
+                         'Subj/Obj_ques_2: ' + label_list[2] + '\n' +
+                         'Relation: ' + label_list[3])
             ann.xy = (coord[0], coord[1])
 
         def hover(event):
