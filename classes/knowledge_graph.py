@@ -9,7 +9,7 @@ import sys
 import networkx as nx
 
 
-class KnowledgeGraph():
+class KnowledgeGraph:
     def __init__(self, df, plt):
         try:
             if df is None:
