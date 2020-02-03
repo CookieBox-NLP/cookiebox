@@ -18,18 +18,18 @@ class KnowledgeGraph:
             else:
                 self.master_repository = self.build_master_repository(df)
                 self.plt = plt
-                print('AFTER =>', self.master_repository)
+
                 '''                
                  :Initalizing the source, target, and relation values that will be contained in a dataframe under respective named columns.
                  :NetworkX constructor will take care of our DiGraph.
                  :***ORDERING MATTERS HERE!***
                 '''
 
-                self.source = [i for i in df['subj']]
-                self.source_ques = [i for i in df['subj_ques']]
-                self.target = [i for i in df['obj']]
-                self.target_ques = [i for i in df['obj_ques']]
-                self.relations = [i for i in df['relations']]
+                # self.source = [i for i in df['subj']]
+                # self.source_ques = [i for i in df['subj_ques']]
+                # self.target = [i for i in df['obj']]
+                # self.target_ques = [i for i in df['obj_ques']]
+                # self.relations = [i for i in df['relations']]
 
                 self.kg = pd.DataFrame({'source': df['subj'], 'target': df['obj'], 'edge': df['relations']})
                 self.G = nx.from_pandas_edgelist(self.kg, "source", "target",
@@ -64,7 +64,7 @@ class KnowledgeGraph:
 
         repository = {}
         fig = self.plt.figure(figsize=(10, 10))
-        pos = nx.spring_layout(self.G, k=[len(max(str(i), key=len)) for i in self.relations][0] + .4)
+        pos = nx.spring_layout(self.G, k=[len(max(str(i), key=len)) for i in self.kg['edge']][0] + .4)
 
         for i, e in pos.items():
             repository[str(list((round(e[0], 1), round(e[1], 1))))] = i
@@ -91,8 +91,8 @@ class KnowledgeGraph:
 
             ann.set_text('AUXILIARY NODE INFORMATION' + '\n\n' +
                          'Node_Nam: ' + label + '\n' +
-                         'Subj/Obj: ' + label_list[0] + '\n' +
-                         'Subj/Obj_Ques_1: ' + label_list[1] + '\n' +
+                         'Subj/Obj: ' + label_list[1] + '\n' +
+                         'Subj/Obj_Ques_1: ' + label_list[0] + '\n' +
                          'Subj/Obj_ques_2: ' + label_list[2] + '\n' +
                          'Relation: ' + label_list[3])
             ann.xy = (coord[0], coord[1])
